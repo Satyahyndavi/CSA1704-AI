@@ -1,0 +1,133 @@
+# Question 1 – Water Jug Problem
+
+```python
+from collections import deque
+
+visited = set()
+queue = deque([(0, 0)])
+
+while queue:
+    x, y = queue.popleft()
+
+    if (x, y) in visited:
+        continue
+
+    visited.add((x, y))
+    print((x, y))
+
+    if x == 2:
+        print("Goal Reached!")
+        break
+
+    next_states = [
+        (4, y),
+        (x, 3),
+        (0, y),
+        (x, 0),
+        (min(4, x + y), y - (4 - x) if x + y > 4 else 0),
+        (x - (3 - y) if x + y > 3 else 0, min(3, x + y))
+    ]
+
+    for state in next_states:
+        if state not in visited:
+            queue.append(state)
+```
+
+---
+
+# Question 2 – Mars Rover Intelligent Agent
+
+```python
+position = 0
+goal = 5
+
+while position < goal:
+    print("Rover at Position:", position)
+    position += 1
+
+print("Destination Reached Successfully!")
+print("Mission Completed.")
+```
+
+---
+
+# Question 3 – Eight Queens Problem
+
+```python
+N = 8
+board = [-1] * N
+
+def safe(row, col):
+    for i in range(row):
+        if board[i] == col or abs(board[i] - col) == abs(i - row):
+            return False
+    return True
+
+def solve(row):
+    if row == N:
+        for i in range(N):
+            for j in range(N):
+                if board[i] == j:
+                    print("Q", end=" ")
+                else:
+                    print(".", end=" ")
+            print()
+        return True
+
+    for col in range(N):
+        if safe(row, col):
+            board[row] = col
+            if solve(row + 1):
+                return True
+    return False
+
+solve(0)
+```
+
+---
+
+# Question 4 – OLA Cab Booking Intelligent Agent
+
+```python
+print("Searching Nearby Drivers...")
+print("Driver Found")
+print("Estimated Fare Calculated")
+print("Ride Confirmed Successfully!")
+print("Have a Safe Journey.")
+```
+
+---
+
+# Question 5 – Uniform Cost Search
+
+```python
+import heapq
+
+graph = {
+    'A': [('B', 2), ('C', 4)],
+    'B': [('D', 3)],
+    'C': [('D', 1)],
+    'D': []
+}
+
+priority_queue = [(0, 'A')]
+visited = set()
+
+while priority_queue:
+    cost, node = heapq.heappop(priority_queue)
+
+    if node in visited:
+        continue
+
+    visited.add(node)
+    print(node, "Cost =", cost)
+
+    if node == 'D':
+        print("Shortest Path Cost =", cost)
+        break
+
+    for next_node, weight in graph[node]:
+        heapq.heappush(priority_queue, (cost + weight, next_node))
+```
+
+
